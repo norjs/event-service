@@ -1,0 +1,15 @@
+[Unit]
+Description=nor-event - NorJS Event service
+After=network.target
+
+[Service]
+RuntimeDirectory=nor-event
+RuntimeDirectoryMode=0750
+Environment=NODE_LISTEN=/run/nor-event/service.socket
+Type=simple
+User=vm
+ExecStart=/usr/local/bin/nor-event-service
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

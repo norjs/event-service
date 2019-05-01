@@ -1,0 +1,39 @@
+{
+  "name": "@norjs/event-service",
+  "version": "1.0.0",
+  "description": "NorJS Event Service",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "bin": {
+    "nor-event-service": "./src/bin/event-service.js"
+  },
+  "scripts": {
+    "test": "mocha test/**/*.spec.js",
+    "test-watch": "mocha --watch test/**/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/norjs/event-service.git"
+  },
+  "author": "Jaakko Heusala <jheusala@iki.fi>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/norjs/event-service/issues"
+  },
+  "keywords": [
+    "event",
+    "observer"
+  ],
+  "homepage": "https://github.com/norjs/event-service#readme",
+  "dependencies": {
+    "@norjs/utils": "^1.0.1",
+    "@norjs/event": "^1.0.0",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.2",
+    "sinon": "^7.3.1"
+  }
+}
