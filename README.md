@@ -30,3 +30,19 @@ Start a service on `./socket.sock`:
 ```
 NODE_LISTEN=socket.sock nor-event-service
 ```
+
+Wait for an event:
+
+```
+if NODE_CONNECT=/path/to/socket.sock nor-event --wait=foo; then
+  echo Event happened
+else
+  echo Timeout happened
+fi
+```
+
+Trigger an event:
+
+```
+NODE_CONNECT=/path/to/socket.sock nor-event --trigger=foo --payload='{"hello":"world"}'
+```

@@ -1,6 +1,6 @@
 {
   "name": "@norjs/event-service",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NorJS Event Service",
   "main": "index.js",
   "directories": {
@@ -10,6 +10,7 @@
     "nor-event-service": "./src/bin/event-service.js"
   },
   "scripts": {
+    "start": "node ./src/bin/event-service.js",
     "test": "mocha test/**/*.spec.js",
     "test-watch": "mocha --watch-extensions js --watch test/**/*.spec.js"
   },
@@ -28,7 +29,7 @@
   ],
   "homepage": "https://github.com/norjs/event-service#readme",
   "dependencies": {
-    "@norjs/event": "^1.0.2",
+    "@norjs/event": "^1.0.3",
     "@norjs/utils": "^1.0.4",
     "lodash": "^4.17.11",
     "uuid": "^3.3.2"
