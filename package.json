@@ -1,6 +1,6 @@
 {
   "name": "@norjs/event-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "NorJS Event Service",
   "main": "index.js",
   "directories": {
@@ -28,8 +28,8 @@
   ],
   "homepage": "https://github.com/norjs/event-service#readme",
   "dependencies": {
-    "@norjs/event": "^1.0.0",
-    "@norjs/utils": "^1.0.3",
+    "@norjs/event": "^1.0.2",
+    "@norjs/utils": "^1.0.4",
     "lodash": "^4.17.11",
     "uuid": "^3.3.2"
   },
