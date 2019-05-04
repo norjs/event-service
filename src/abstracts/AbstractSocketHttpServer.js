@@ -1,4 +1,5 @@
 // Interfaces for TypeUtils
+require('../interfaces/HttpRequestController.js');
 require('../interfaces/HttpRequestObject.js');
 require('../interfaces/HttpResponseObject.js');
 require('../interfaces/HttpServerModule.js');

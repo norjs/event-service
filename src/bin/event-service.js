@@ -35,6 +35,12 @@ LogicUtils.tryCatch( () => {
 
 	/**
 	 *
+ 	 * @type {v4}
+	 */
+	const UUID = require('uuid');
+
+	/**
+	 *
 	 * @type {string}
 	 */
 	const NODE_LISTEN = process.env.NODE_LISTEN || `${__dirname}/nor-event-service.socket`;
@@ -72,7 +78,7 @@ LogicUtils.tryCatch( () => {
 		httpModule: HTTP,
 		fsModule: FS,
 		pathModule: PATH,
-		controller: new EventServiceController(),
+		controller: new EventServiceController(() => UUID()),
 		RequestController: EventServiceHttpRequestController
 	});
 

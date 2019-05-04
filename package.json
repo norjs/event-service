@@ -28,9 +28,10 @@
   ],
   "homepage": "https://github.com/norjs/event-service#readme",
   "dependencies": {
-    "@norjs/utils": "^1.0.3",
     "@norjs/event": "^1.0.0",
-    "lodash": "^4.17.11"
+    "@norjs/utils": "^1.0.3",
+    "lodash": "^4.17.11",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "mocha": "^6.0.2",

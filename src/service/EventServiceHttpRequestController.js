@@ -80,35 +80,39 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		const url = this._request.url;
 
 		if (url.startsWith(ROUTES.fetchEvents)) {
-			console.log('fetchEvents: ', url);
+			console.log('onRequest: fetchEvents: ', url);
+			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
-				(params, payload) => this._onFetchEventsRequest(params, payload)
+				(params) => this._onFetchEventsRequest(params)
 			);
 		}
 
 		if (url.startsWith(ROUTES.trigger)) {
-			console.log('Trigger: ', url);
+			console.log('onRequest: Trigger: ', url);
 			return this._jsonResponse(
 				(params, payload) => this._onTriggerRequest(params, payload)
 			);
 		}
 
 		if (url.startsWith(ROUTES.start)) {
-			console.log('start: ', url);
+			console.log('onRequest: start: ', url);
+			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
 				(params, payload) => this._onStartRequest(params, payload)
 			);
 		}
 
 		if (url.startsWith(ROUTES.stop)) {
-			console.log('stop: ', url);
+			console.log('onRequest: stop: ', url);
+			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
-				(params, payload) => this._onStopRequest(params, payload)
+				(params) => this._onStopRequest(params)
 			);
 		}
 
 		if (url.startsWith(ROUTES.setEvents)) {
-			console.log('setEvents: ', url);
+			console.log('onRequest: setEvents: ', url);
+			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
 				(params, payload) => this._onSetEventsRequest(params, payload)
 			);
@@ -121,6 +125,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 	 *
 	 * @param params {{}}
 	 * @param payload {TriggerEventServiceRequestDTO}
+	 * @returns {TriggerEventServiceResponseDTO}
 	 * @protected
 	 */
 	_onTriggerRequest (params, payload) {
@@ -145,7 +150,8 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 	/**
 	 *
 	 * @param params {{}}
-	 * @param payload {{}}
+	 * @param payload {StartEventServiceRequestDTO}
+	 * @returns {StartEventServiceResponseDTO}
 	 * @protected
 	 */
 	_onStartRequest (params, payload) {
@@ -153,45 +159,55 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		TypeUtils.assert(payload, "{}");
 
 		console.log('Start: ', this._request.url);
+
+		return this._controller.start(payload.events);
 	}
 
 	/**
 	 *
-	 * @param params {{}}
-	 * @param payload {{}}
+	 * @param params {{fetchId: string}}
+	 * @returns {StopEventServiceResponseDTO}
 	 * @protected
 	 */
-	_onStopRequest (params, payload) {
-		TypeUtils.assert(params, "{}");
-		TypeUtils.assert(payload, "{}");
+	_onStopRequest (params) {
+		TypeUtils.assert(params, "{fetchId: string}");
+		TypeUtils.assert(params.fetchId, "string");
 
 		console.log('Stop: ', this._request.url);
+
+		return this._controller.stop(params.fetchId);
 	}
 
 	/**
 	 *
-	 * @param params {{}}
-	 * @param payload {{}}
+	 * @param params {{fetchId: string}}
+	 * @param payload {SetEventsServiceRequestDTO}
+	 * @returns {SetEventsServiceResponseDTO}
 	 * @protected
 	 */
 	_onSetEventsRequest (params, payload) {
-		TypeUtils.assert(params, "{}");
-		TypeUtils.assert(payload, "{}");
+		TypeUtils.assert(params, "{fetchId: string}");
+		TypeUtils.assert(params.fetchId, "string");
+		TypeUtils.assert(payload, "SetEventsServiceRequestDTO");
 
 		console.log('setEvents: ', this._request.url);
+
+		return this._controller.setEvents(params.fetchId, payload.events);
 	}
 
 	/**
 	 *
-	 * @param params {{}}
-	 * @param payload {{}}
+	 * @param params {{fetchId: string}}
+	 * @returns {Promise.<FetchEventServiceResponseDTO>}
 	 * @protected
 	 */
-	_onFetchEventsRequest (params, payload) {
+	_onFetchEventsRequest (params) {
 		TypeUtils.assert(params, "{}");
-		TypeUtils.assert(payload, "{}");
+		TypeUtils.assert(params.fetchId, "string");
 
 		console.log('fetchEvents: ', this._request.url);
+
+		return this._controller.fetchEvents(params.fetchId);
 	}
 
 }

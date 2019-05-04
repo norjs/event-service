@@ -3,6 +3,8 @@ require('@norjs/event/types');
 require('../interfaces/HttpRequestObject.js');
 require('../interfaces/HttpResponseObject.js');
 
+const _ = require('lodash');
+
 /**
  *
  * @type {typeof TypeUtils}
@@ -66,6 +68,10 @@ class AbstractHttpRequestController {
         //TypeUtils.assert(request, "*");
         TypeUtils.assert(statusCode, "number");
 
+        if (!_.isObject(data)) {
+            data = {payload: data};
+        }
+
         const dataString = JSON.stringify(data);
         console.log('WOOT: dataString: ', dataString);
 
@@ -128,7 +134,11 @@ class AbstractHttpRequestController {
                         LogicUtils.tryCatch(() => {
                             const buffer = Buffer.concat(chunks);
                             const dataString = buffer.toString('utf8');
-                            resolve(JSON.parse(dataString));
+                            if (dataString === "") {
+                                resolve(undefined);
+                            } else {
+                                resolve(JSON.parse(dataString));
+                            }
                         }, reject);
                     });
                 },
