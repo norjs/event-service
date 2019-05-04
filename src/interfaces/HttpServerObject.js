@@ -11,11 +11,28 @@ const TypeUtils = require("@norjs/utils/Type");
  */
 class HttpServerObject {
 
+    /**
+     * Starts to listen on a UNIX socket file.
+     *
+     * @param path {string} Path to UNIX Socket file
+     * @param callback {function} The callback added to the 'listening' event.
+     */
+    listen (path, callback) {}
+
+    /**
+     * Close the server
+     */
     close () {}
 
 }
 
-TypeUtils.defineType("HttpServerObject", TypeUtils.classToObjectPropertyTypes(HttpServerObject));
+TypeUtils.defineType(
+    "HttpServerObject",
+    TypeUtils.classToObjectPropertyTypes(HttpServerObject),
+    {
+        acceptUndefinedProperties: true
+    }
+);
 
 /**
  *

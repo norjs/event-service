@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 /**
  *
  * @type {typeof TypeUtils}
@@ -21,7 +23,13 @@ class HttpServerModule {
 
 }
 
-TypeUtils.defineType("HttpServerModule", TypeUtils.classToObjectPropertyTypes(HttpServerModule));
+TypeUtils.defineType(
+    "HttpServerModule",
+    TypeUtils.classToObjectPropertyTypes(HttpServerModule),
+    {
+        acceptUndefinedProperties: true
+    }
+);
 
 /**
  *

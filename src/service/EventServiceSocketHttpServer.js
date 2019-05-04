@@ -27,13 +27,15 @@ class EventServiceSocketHttpServer extends SocketHttpServer {
     /**
      *
      * @param listen {string} The UNIX socket file to listen for requests.
-     * @param http {module:http} The Node.js HTTP module
+     * @param httpModule {HttpServerModule} The Node.js HTTP module
+     * @param fsModule {FileSystemModule} The Node.js 'fs' module
+     * @param pathModule {PathModule} The Node.js 'path' module
      * @param controller {EventServiceController}
      * @param RequestController {typeof EventServiceHttpRequestController}
      */
-    constructor ({controller, RequestController, listen, http}) {
+    constructor ({controller, RequestController, listen, httpModule, pathModule, fsModule}) {
 
-        super({listen, http});
+        super({listen, httpModule, pathModule, fsModule});
 
         TypeUtils.assert(controller, "EventServiceController");
         TypeUtils.assert(RequestController, "function");
@@ -55,7 +57,10 @@ class EventServiceSocketHttpServer extends SocketHttpServer {
 
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /**
+     *
+     * Note: This is used from the `SocketHttpServer` even though WebStorm doesn't detect it.
      *
      * @returns {string}
      */

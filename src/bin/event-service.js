@@ -17,9 +17,21 @@ LogicUtils.tryCatch( () => {
 
 	/**
 	 *
-	 * @type {module:http}
+	 * @type {HttpServerModule}
 	 */
 	const HTTP = require('http');
+
+	/**
+	 *
+	 * @type {FileSystemModule}
+	 */
+	const FS = require('fs');
+
+	/**
+	 *
+	 * @type {PathModule}
+	 */
+	const PATH = require('path');
 
 	/**
 	 *
@@ -57,7 +69,9 @@ LogicUtils.tryCatch( () => {
 	 */
 	const server = new EventServiceSocketHttpServer({
 		listen: NODE_LISTEN,
-		http: HTTP,
+		httpModule: HTTP,
+		fsModule: FS,
+		pathModule: PATH,
 		controller: new EventServiceController(),
 		RequestController: EventServiceHttpRequestController
 	});

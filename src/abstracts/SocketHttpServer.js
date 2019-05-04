@@ -1,5 +1,10 @@
+// Interfaces for TypeUtils
 require('../interfaces/HttpRequestObject.js');
 require('../interfaces/HttpResponseObject.js');
+require('../interfaces/HttpServerModule.js');
+require('../interfaces/HttpServerObject.js');
+require('../interfaces/FileSystemModule.js');
+require('../interfaces/PathModule.js');
 
 /**
  *
@@ -13,9 +18,6 @@ const LogicUtils = require('@norjs/utils/Logic');
  */
 const TypeUtils = require('@norjs/utils/Type');
 
-const PATH = require('path');
-const FS = require('fs');
-
 /**
  * This class implements a HTTP server over UNIX socket file.
  *
@@ -25,13 +27,16 @@ class SocketHttpServer {
 
 	/**
 	 *
-	 * @param listen {string} The UNIX socket file to listen for requests.
-	 * @param http {HttpServerModule} The Node.js HTTP module
+	 * @param listenModule {string} The UNIX socket file to listen for requests.
+	 * @param httpModule {HttpServerModule} The Node.js HTTP module
+	 * @param fsModule {FileSystemModule} The Node.js fs module
 	 */
-	constructor ({listen, http} = {}) {
+	constructor ({listen, httpModule, fsModule, pathModule} = {}) {
 
 		TypeUtils.assert(listen, "string");
-		TypeUtils.assert(http, "HttpServerModule");
+		TypeUtils.assert(httpModule, "HttpServerModule");
+		TypeUtils.assert(fsModule, "FileSystemModule");
+		TypeUtils.assert(pathModule, "PathModule");
 
 		/**
 		 *
@@ -49,10 +54,24 @@ class SocketHttpServer {
 
 		/**
 		 *
+		 * @member {PathModule}
+		 * @protected
+		 */
+		this._path = pathModule;
+
+		/**
+		 *
 		 * @member {HttpServerModule}
 		 * @protected
 		 */
-		this._http = http;
+		this._http = httpModule;
+
+		/**
+		 *
+		 * @member {FileSystemModule}
+		 * @protected
+		 */
+		this._fs = fsModule;
 
 		/**
 		 *
@@ -171,34 +190,34 @@ class SocketHttpServer {
 		 */
 		const socketFile = this._listen;
 
-		const socketDir = PATH.dirname(socketFile);
+		const socketDir = this._path.dirname(socketFile);
 
 		TypeUtils.assert(socketDir, "string");
 
-		if (!FS.existsSync(socketDir)) {
+		if (!this._fs.existsSync(socketDir)) {
 			console.log(`[${this.getClass().getTimeForLog()}] Creating missing runtime directory at "${socketDir}"`);
-			FS.mkdirSync(socketDir, {
+			this._fs.mkdirSync(socketDir, {
 				  recursive: true,
-				  mode: '700'
+				  mode: 700
 			});
 		}
 
-		if (FS.existsSync(socketFile)) {
-			const stats = FS.statSync(socketFile);
+		if (this._fs.existsSync(socketFile)) {
+			const stats = this._fs.statSync(socketFile);
 			if (stats.isSocket()) {
 				console.log(`[${this.getClass().getTimeForLog()}] Old socket file detected at "${socketFile}"; unlinking it.`);
-				FS.unlinkSync(socketFile);
+				this._fs.unlinkSync(socketFile);
 			} else {
 				throw new Error(`Socket file already exists and is not a socket: "${socketFile}"`);
 			}
 		}
 
-		server.listen(socketFile, () => {
+		this._server.listen(socketFile, () => {
 
 			this._socketFile = socketFile;
 			this._running = true;
 
-			FS.chmodSync(socketFile, '750');
+			this._fs.chmodSync(socketFile, 750);
 
 			console.log(`[${this.getClass().getTimeForLog()}] ${this.getClass().getAppName()} running at ${socketFile}`);
 
@@ -228,8 +247,8 @@ class SocketHttpServer {
 			this._running = false;
 			if (this._socketFile) {
 				console.log(`[${this.getClass().getTimeForLog()}] ${this.getClass().getAppName()} stopped at ${this._socketFile}`);
-				if (FS.existsSync(this._socketFile)) {
-					FS.unlinkSync(this._socketFile);
+				if (this._fs.existsSync(this._socketFile)) {
+					this._fs.unlinkSync(this._socketFile);
 					console.log(`[${this.getClass().getTimeForLog()}] Removing socket file at ${this._socketFile}`);
 				}
 				this._socketFile = undefined;
