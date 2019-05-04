@@ -1,8 +1,8 @@
 # NorJS Event Service
 
 This is a local service which passes on events to 
-(https://github.com/norjs/event-server)[event servers] and 
-(https://github.com/norjs/event)[observers].
+[event servers](https://github.com/norjs/event-server) and 
+[observers](https://github.com/norjs/event).
 
 ### Design
 
