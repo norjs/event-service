@@ -44,7 +44,13 @@ class HttpResponseObject {
 
 }
 
-TypeUtils.defineType("HttpResponseObject", TypeUtils.classToObjectPropertyTypes(HttpResponseObject));
+TypeUtils.defineType(
+    "HttpResponseObject",
+    TypeUtils.classToObjectPropertyTypes(HttpResponseObject),
+    {
+        acceptUndefinedProperties: true
+    }
+);
 
 /**
  *

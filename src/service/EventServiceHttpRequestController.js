@@ -1,3 +1,6 @@
+// Interfaces
+require('@norjs/event/types');
+
 /**
  *
  * @type {typeof LogicUtils}
@@ -64,7 +67,7 @@ class EventServiceHttpRequestController extends HttpRequestController {
 	 * @protected
 	 */
 	onRequest () {
-		console.log(`[${this.getClass().getTimeForLog()}] Request "${this._request.method} ${this._request.url}" started`);
+		console.log(`Request "${this._request.method} ${this._request.url}" started`);
 
 		const url = this._request.url;
 
@@ -109,13 +112,13 @@ class EventServiceHttpRequestController extends HttpRequestController {
 	/**
 	 *
 	 * @param params {{}}
-	 * @param payload {{}}
+	 * @param payload {TriggerEventServiceRequestDTO}
 	 * @protected
 	 */
 	_onTriggerRequest (params, payload) {
 
 		TypeUtils.assert(params, "{}");
-		TypeUtils.assert(payload, "{}");
+		TypeUtils.assert(payload, "TriggerEventServiceRequestDTO");
 
 		console.log('Trigger: ', params, payload);
 

@@ -37,7 +37,7 @@ class EventServiceController {
 	 */
 	trigger (events) {
 		TypeUtils.assert(events, "Array.<Event>");
-		console.log('events: ', events);
+		console.log('WOOT: events: ', TypeUtils.toString(events));
 	}
 
 	/**

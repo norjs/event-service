@@ -169,7 +169,7 @@ class HttpRequestController {
      */
     handleRequestErrors (err) {
         TypeUtils.assert(err, "Error");
-        // console.error(`[${this.getClass().getTimeForLog()}] Error: `, err);
+        console.error(`Error: `, err);
         return this._writeErrorResponse ({error: 'Internal Service Error'});
     }
 

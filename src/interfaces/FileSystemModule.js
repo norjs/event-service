@@ -50,7 +50,9 @@ class FileSystemModule {
 
 }
 
-TypeUtils.defineType("FileSystemModule", TypeUtils.classToObjectPropertyTypes(FileSystemModule),
+TypeUtils.defineType(
+    "FileSystemModule",
+    TypeUtils.classToObjectPropertyTypes(FileSystemModule),
     {
         acceptUndefinedProperties: true
     }

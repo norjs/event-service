@@ -20,10 +20,13 @@ class PathModule {
 
 }
 
-TypeUtils.defineType("PathModule", TypeUtils.classToObjectPropertyTypes(PathModule),
+TypeUtils.defineType(
+    "PathModule",
+    TypeUtils.classToObjectPropertyTypes(PathModule),
     {
         acceptUndefinedProperties: true
-    });
+    }
+);
 
 /**
  *

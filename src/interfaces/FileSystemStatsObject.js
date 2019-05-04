@@ -18,10 +18,13 @@ class FileSystemStatsObject {
 
 }
 
-TypeUtils.defineType("FileSystemStatsObject", TypeUtils.classToObjectPropertyTypes(FileSystemStatsObject),
+TypeUtils.defineType(
+    "FileSystemStatsObject",
+    TypeUtils.classToObjectPropertyTypes(FileSystemStatsObject),
     {
         acceptUndefinedProperties: true
-    });
+    }
+);
 
 /**
  *
