@@ -21,9 +21,10 @@ const TypeUtils = require('@norjs/utils/Type');
 /**
  * This class implements a HTTP server over UNIX socket file.
  *
+ * @implements {SocketHttpServer}
  * @abstract
  */
-class SocketHttpServer {
+class AbstractSocketHttpServer {
 
 	/**
 	 *
@@ -89,7 +90,7 @@ class SocketHttpServer {
 
 		/**
 		 *
-		 * @member {typeof SocketHttpServer}
+		 * @member {typeof AbstractSocketHttpServer}
 		 * @protected
 		 */
 		this.Class = this.getClass();
@@ -98,7 +99,7 @@ class SocketHttpServer {
 
 	/**
 	 *
-	 * @returns {typeof SocketHttpServer}
+	 * @returns {typeof AbstractSocketHttpServer}
 	 */
 	getClass () {
 		return this.constructor;
@@ -270,10 +271,10 @@ class SocketHttpServer {
 
 }
 
-TypeUtils.defineType("SocketHttpServer", TypeUtils.classToTestType(SocketHttpServer));
+TypeUtils.defineType("AbstractSocketHttpServer", TypeUtils.classToTestType(AbstractSocketHttpServer));
 
 /**
  *
- * @type {typeof SocketHttpServer}
+ * @type {typeof AbstractSocketHttpServer}
  */
-module.exports = SocketHttpServer;
+module.exports = AbstractSocketHttpServer;

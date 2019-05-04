@@ -20,9 +20,10 @@ const URL = require('url');
 /**
  * This class implements an abstract base class for HttpRequestControllers.
  *
+ * @implements {HttpRequestController}
  * @abstract
  */
-class HttpRequestController {
+class AbstractHttpRequestController {
 
     /**
      *
@@ -192,10 +193,10 @@ class HttpRequestController {
 
 }
 
-TypeUtils.defineType("HttpRequestController", TypeUtils.classToTestType(HttpRequestController));
+TypeUtils.defineType("AbstractHttpRequestController", TypeUtils.classToTestType(AbstractHttpRequestController));
 
 /**
  *
- * @type {typeof HttpRequestController}
+ * @type {typeof AbstractHttpRequestController}
  */
-module.exports = HttpRequestController;
+module.exports = AbstractHttpRequestController;

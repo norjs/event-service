@@ -23,6 +23,8 @@ class EventServiceController {
 	 */
 	constructor () {
 
+
+
 	}
 
 	/**
@@ -37,6 +39,8 @@ class EventServiceController {
 	trigger (events) {
 		TypeUtils.assert(events, "Array.<Event>");
 		console.log('WOOT: events: ', TypeUtils.stringify(events));
+
+
 
 		return Promise.resolve({
 			events

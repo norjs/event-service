@@ -15,14 +15,14 @@ const LogicUtils = require('@norjs/utils/Logic');
 
 /**
  *
- * @type {typeof SocketHttpServer}
+ * @type {typeof AbstractSocketHttpServer}
  */
-const SocketHttpServer = require('../abstracts/SocketHttpServer.js');
+const AbstractSocketHttpServer = require('../abstracts/AbstractSocketHttpServer.js');
 
 /**
  * This class implements a HTTP server over UNIX socket file for NorJS EventService.
  */
-class EventServiceSocketHttpServer extends SocketHttpServer {
+class EventServiceSocketHttpServer extends AbstractSocketHttpServer {
 
     /**
      *
@@ -60,7 +60,7 @@ class EventServiceSocketHttpServer extends SocketHttpServer {
     // noinspection JSUnusedGlobalSymbols
     /**
      *
-     * Note: This is used from the `SocketHttpServer` even though WebStorm doesn't detect it.
+     * Note: This is used from the `AbstractSocketHttpServer` even though WebStorm doesn't detect it.
      *
      * @returns {string}
      */

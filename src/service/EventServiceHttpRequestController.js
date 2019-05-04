@@ -23,9 +23,9 @@ const Event = require("@norjs/event/Event");
 
 /**
  *
- * @type {typeof HttpRequestController}
+ * @type {typeof AbstractHttpRequestController}
  */
-const HttpRequestController = require('../abstracts/HttpRequestController.js');
+const AbstractHttpRequestController = require('../abstracts/AbstractHttpRequestController.js');
 
 /**
  *
@@ -42,7 +42,7 @@ const ROUTES = {
 /**
  * This class implements HTTP application server for nor-event-service.
  */
-class EventServiceHttpRequestController extends HttpRequestController {
+class EventServiceHttpRequestController extends AbstractHttpRequestController {
 
 	/**
 	 *
