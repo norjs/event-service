@@ -3,6 +3,12 @@
 
 /**
  *
+ * @type {PathModule}
+ */
+const PATH = require('path');
+
+/**
+ *
  * @type {typeof TypeUtils}
  */
 const TypeUtils = require("@norjs/utils/Type");
@@ -29,12 +35,6 @@ LogicUtils.tryCatch( () => {
 
 	/**
 	 *
-	 * @type {PathModule}
-	 */
-	const PATH = require('path');
-
-	/**
-	 *
  	 * @type {v4}
 	 */
 	const UUID = require('uuid');
@@ -44,6 +44,14 @@ LogicUtils.tryCatch( () => {
 	 * @type {string}
 	 */
 	const NODE_LISTEN = process.env.NODE_LISTEN || `${__dirname}/nor-event-service.socket`;
+
+	loadTypes(process.env.NOR_EVENT_LOAD_TYPES);
+
+	/**
+	 *
+	 * @type {Object.<string, string>}
+	 */
+	const NOR_EVENT_PAYLOAD_TYPES = parsePayloadTypes(process.env.NOR_EVENT_PAYLOAD_TYPES);
 
 	/**
 	 *
@@ -78,7 +86,10 @@ LogicUtils.tryCatch( () => {
 		httpModule: HTTP,
 		fsModule: FS,
 		pathModule: PATH,
-		controller: new EventServiceController(() => UUID()),
+		controller: new EventServiceController({
+			idGenerator: () => UUID(),
+			payloadTypes: NOR_EVENT_PAYLOAD_TYPES
+		}),
 		RequestController: EventServiceHttpRequestController
 	});
 
@@ -107,3 +118,42 @@ LogicUtils.tryCatch( () => {
 
 	process.exit(1);
 });
+
+/**
+ *
+ * @param value {string}
+ * @returns {Object.<string, string>}
+ */
+function parsePayloadTypes (value) {
+
+	if (!value) return {};
+
+	// Directly JSON
+	if (value[0] === '{') {
+		const types = JSON.parse(value);
+		TypeUtils.assert(types, "Object.<string,string>");
+		return types;
+	}
+
+	// Filename
+	const types = requireFile(value);
+	TypeUtils.assert(types, "Object.<string,string>");
+	return types;
+}
+
+/**
+ *
+ * @param value {string}
+ */
+function loadTypes (value) {
+	if (value) requireFile(value);
+}
+
+/**
+ *
+ * @param name {string}
+ * @return {any}
+ */
+function requireFile (name) {
+	return require(PATH.resolve(process.cwd(), name));
+}

@@ -25,13 +25,14 @@ HTTP long polling.
 
 ### Usage
 
-Start a service on `./socket.sock`:
+#### Start a service on `./socket.sock`:
 
 ```
-NODE_LISTEN=socket.sock nor-event-service
+NODE_LISTEN=socket.sock \
+nor-event-service
 ```
 
-Wait for an event:
+#### Wait for an event:
 
 ```
 if NODE_CONNECT=/path/to/socket.sock nor-event --wait=foo; then
@@ -41,8 +42,44 @@ else
 fi
 ```
 
-Trigger an event:
+#### Trigger an event:
 
 ```
 NODE_CONNECT=/path/to/socket.sock nor-event --trigger=foo --payload='{"hello":"world"}'
 ```
+
+#### Start a service on `./socket.sock` with configured types:
+
+```
+NOR_EVENT_LOAD_TYPES='./types.js' \
+NOR_EVENT_PAYLOAD_TYPES='{"my-resource:created": "MyResourceDTO"}' \
+NODE_LISTEN=./socket.sock \
+nor-event-service
+```
+
+And define your types using JSDoc-style in a file named `./types.js`: 
+
+```js
+const TypeUtils = require('@norjs/utils/Type');
+
+/**
+ * @typedef {Object} MyResourceDTO
+ * @property {number} id - My resource id
+ * @property {string} name - My resource name
+ * @property {boolean} deleted - Deleted or not?
+ * @property {Array.<MyResourceItemDTO>} items - My items
+ */
+TypeUtils.defineType(
+    "MyResourceDTO", 
+    {
+        "id": "number",
+        "name": "string",
+        "deleted": "boolean",
+        "items": "Array.<MyResourceItemDTO>"
+    }
+);
+
+```
+
+You can use this file from your own application. It also integrates to WebStorm's 
+quick documentation, too, since it is standard JavaScript and JSDoc.

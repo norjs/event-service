@@ -45,8 +45,12 @@ class EventServiceController {
 	/**
 	 *
 	 * @param idGenerator {function: string} A function to use to generate IDs
+	 * @param payloadTypes {Object.<string,string>} Event payload types mapped by event name
 	 */
-	constructor (idGenerator) {
+	constructor ({
+		idGenerator,
+		payloadTypes
+	}) {
 
 		/**
 		 *
@@ -62,6 +66,13 @@ class EventServiceController {
 		 * @private
 		 */
 		this._idGenerator = idGenerator;
+
+		/**
+		 *
+		 * @type {Object<string, string>}
+		 * @private
+		 */
+		this._payloadTypes = payloadTypes;
 
 	}
 
@@ -79,7 +90,13 @@ class EventServiceController {
 		// console.log('WOOT: events: ', TypeUtils.stringify(events));
 
 		_.forEach(events, event => {
-			if (!event.name) throw new TypeError("Events must have a name");
+			const eventName = event.name;
+
+			if (!eventName) throw new TypeError("All events must have a name");
+
+			if (_.has(this._payloadTypes, eventName)) {
+				TypeUtils.assert(event.payload, this._payloadTypes[eventName]);
+			}
 		});
 
 		_.forEach(this._sessions,
