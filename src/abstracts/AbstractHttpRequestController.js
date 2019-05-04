@@ -3,6 +3,12 @@ require('@norjs/event/types');
 require('../interfaces/HttpRequestObject.js');
 require('../interfaces/HttpResponseObject.js');
 
+/**
+ *
+ * @type {typeof AbstractSocketHttpServer}
+ */
+const AbstractSocketHttpServer = require('./AbstractSocketHttpServer.js');
+
 const _ = require('lodash');
 
 /**
@@ -73,13 +79,13 @@ class AbstractHttpRequestController {
         }
 
         const dataString = JSON.stringify(data);
-        console.log('WOOT: dataString: ', dataString);
+        // console.log('WOOT: dataString: ', dataString);
 
         this._response.statusCode = statusCode;
         this._response.setHeader('Content-Type', 'application/json');
         this._response.write(`${dataString}\n`);
         this._response.end();
-        // console.log(`[${this.getClass().getTimeForLog()}] Request "${req.method} ${req.url}" finished with ${statusCode}`);
+        console.log(`[${AbstractSocketHttpServer.getTimeForLog()}] Request "${this._request.method} ${this._request.url}" finished with ${statusCode}`);
         return data;
     }
 

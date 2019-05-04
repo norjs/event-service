@@ -76,7 +76,7 @@ class EventServiceController {
 	 */
 	trigger (events) {
 		TypeUtils.assert(events, "Array.<Event>");
-		console.log('WOOT: events: ', TypeUtils.stringify(events));
+		// console.log('WOOT: events: ', TypeUtils.stringify(events));
 
 		_.forEach(events, event => {
 			if (!event.name) throw new TypeError("Events must have a name");
@@ -128,6 +128,8 @@ class EventServiceController {
 		TypeUtils.assert(events, "Array.<string>");
 		console.log('fetchId: ', fetchId);
 		console.log('events: ', events);
+
+		throw new TypeError(`Not implemented yet.`);
 	}
 
 	/**
@@ -138,7 +140,7 @@ class EventServiceController {
 	 */
 	fetchEvents (fetchId) {
 		TypeUtils.assert(fetchId, "string");
-		console.log('fetchId: ', fetchId);
+		// console.log('fetchId: ', fetchId);
 
 		const session = this._getSession(fetchId);
 
@@ -200,7 +202,7 @@ class EventServiceController {
 	 */
 	start (events) {
 		TypeUtils.assert(events, "Array.<string>");
-		console.log('events: ', events);
+		// console.log('events: ', events);
 
 		/**
 		 *
@@ -238,7 +240,7 @@ class EventServiceController {
 	 */
 	stop (fetchId) {
 		TypeUtils.assert(fetchId, "string");
-		console.log('fetchId: ', fetchId);
+		// console.log('fetchId: ', fetchId);
 
 		const session = this._getSession(fetchId);
 

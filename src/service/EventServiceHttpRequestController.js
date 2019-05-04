@@ -23,6 +23,12 @@ const Event = require("@norjs/event/Event");
 
 /**
  *
+ * @type {typeof AbstractSocketHttpServer}
+ */
+const AbstractSocketHttpServer = require('../abstracts/AbstractSocketHttpServer.js');
+
+/**
+ *
  * @type {typeof AbstractHttpRequestController}
  */
 const AbstractHttpRequestController = require('../abstracts/AbstractHttpRequestController.js');
@@ -75,12 +81,12 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 	 * @protected
 	 */
 	onRequest () {
-		console.log(`Request "${this._request.method} ${this._request.url}" started`);
+		console.log(`[${AbstractSocketHttpServer.getTimeForLog()}] Request "${this._request.method} ${this._request.url}" started`);
 
 		const url = this._request.url;
 
 		if (url.startsWith(ROUTES.fetchEvents)) {
-			console.log('onRequest: fetchEvents: ', url);
+			//console.log('onRequest: fetchEvents: ', url);
 			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
 				(params) => this._onFetchEventsRequest(params)
@@ -88,14 +94,14 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		}
 
 		if (url.startsWith(ROUTES.trigger)) {
-			console.log('onRequest: Trigger: ', url);
+			//console.log('onRequest: Trigger: ', url);
 			return this._jsonResponse(
 				(params, payload) => this._onTriggerRequest(params, payload)
 			);
 		}
 
 		if (url.startsWith(ROUTES.start)) {
-			console.log('onRequest: start: ', url);
+			//console.log('onRequest: start: ', url);
 			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
 				(params, payload) => this._onStartRequest(params, payload)
@@ -103,7 +109,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		}
 
 		if (url.startsWith(ROUTES.stop)) {
-			console.log('onRequest: stop: ', url);
+			//console.log('onRequest: stop: ', url);
 			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
 				(params) => this._onStopRequest(params)
@@ -111,7 +117,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		}
 
 		if (url.startsWith(ROUTES.setEvents)) {
-			console.log('onRequest: setEvents: ', url);
+			//console.log('onRequest: setEvents: ', url);
 			// noinspection JSCheckFunctionSignatures
 			return this._jsonResponse(
 				(params, payload) => this._onSetEventsRequest(params, payload)
@@ -133,8 +139,8 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		TypeUtils.assert(params, "{}");
 		TypeUtils.assert(payload, "TriggerEventServiceRequestDTO");
 
-		console.log('_onTriggerRequest: params: ', params);
-		console.log('_onTriggerRequest: payload: ', payload);
+		//console.log('_onTriggerRequest: params: ', params);
+		//console.log('_onTriggerRequest: payload: ', payload);
 
 		/**
 		 *
@@ -142,7 +148,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		 */
 		const events = _.map(payload.events || [], event => new Event(event));
 
-		console.log('_onTriggerRequest: events: ', events);
+		//console.log('_onTriggerRequest: events: ', events);
 
 		return this._controller.trigger(events);
 	}
@@ -158,7 +164,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		TypeUtils.assert(params, "{}");
 		TypeUtils.assert(payload, "{}");
 
-		console.log('Start: ', this._request.url);
+		//console.log('Start: ', this._request.url);
 
 		return this._controller.start(payload.events);
 	}
@@ -173,7 +179,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		TypeUtils.assert(params, "{fetchId: string}");
 		TypeUtils.assert(params.fetchId, "string");
 
-		console.log('Stop: ', this._request.url);
+		//console.log('Stop: ', this._request.url);
 
 		return this._controller.stop(params.fetchId);
 	}
@@ -190,7 +196,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		TypeUtils.assert(params.fetchId, "string");
 		TypeUtils.assert(payload, "SetEventsServiceRequestDTO");
 
-		console.log('setEvents: ', this._request.url);
+		// console.log('setEvents: ', this._request.url);
 
 		return this._controller.setEvents(params.fetchId, payload.events);
 	}
@@ -205,7 +211,7 @@ class EventServiceHttpRequestController extends AbstractHttpRequestController {
 		TypeUtils.assert(params, "{}");
 		TypeUtils.assert(params.fetchId, "string");
 
-		console.log('fetchEvents: ', this._request.url);
+		//console.log('fetchEvents: ', this._request.url);
 
 		return this._controller.fetchEvents(params.fetchId);
 	}
