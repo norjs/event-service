@@ -1,3 +1,4 @@
+// Interfaces
 require('@norjs/event/types');
 
 /**
@@ -14,8 +15,6 @@ const LogicUtils = require('@norjs/utils/Logic');
 
 /**
  * This class implements NorJS event service business logic.
- *
- * @implements {EventService}
  */
 class EventServiceController {
 
@@ -37,7 +36,11 @@ class EventServiceController {
 	 */
 	trigger (events) {
 		TypeUtils.assert(events, "Array.<Event>");
-		console.log('WOOT: events: ', TypeUtils.toString(events));
+		console.log('WOOT: events: ', TypeUtils.stringify(events));
+
+		return Promise.resolve({
+			events
+		});
 	}
 
 	/**

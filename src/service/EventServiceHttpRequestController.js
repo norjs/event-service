@@ -1,6 +1,8 @@
 // Interfaces
 require('@norjs/event/types');
 
+const _ = require('lodash');
+
 /**
  *
  * @type {typeof LogicUtils}
@@ -12,6 +14,12 @@ const LogicUtils = require('@norjs/utils/Logic');
  * @type {typeof TypeUtils}
  */
 const TypeUtils = require("@norjs/utils/Type");
+
+/**
+ *
+ * @type {typeof Event}
+ */
+const Event = require("@norjs/event/Event");
 
 /**
  *
@@ -120,13 +128,16 @@ class EventServiceHttpRequestController extends HttpRequestController {
 		TypeUtils.assert(params, "{}");
 		TypeUtils.assert(payload, "TriggerEventServiceRequestDTO");
 
-		console.log('Trigger: ', params, payload);
+		console.log('_onTriggerRequest: params: ', params);
+		console.log('_onTriggerRequest: payload: ', payload);
 
 		/**
 		 *
 		 * @type {Array.<Event>}
 		 */
-		const events = [];
+		const events = _.map(payload.events || [], event => new Event(event));
+
+		console.log('_onTriggerRequest: events: ', events);
 
 		return this._controller.trigger(events);
 	}

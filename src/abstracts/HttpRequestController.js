@@ -1,4 +1,5 @@
 // Interfaces for TypeUtils
+require('@norjs/event/types');
 require('../interfaces/HttpRequestObject.js');
 require('../interfaces/HttpResponseObject.js');
 
@@ -65,6 +66,8 @@ class HttpRequestController {
         TypeUtils.assert(statusCode, "number");
 
         const dataString = JSON.stringify(data);
+        console.log('WOOT: dataString: ', dataString);
+
         this._response.statusCode = statusCode;
         this._response.setHeader('Content-Type', 'application/json');
         this._response.write(`${dataString}\n`);
@@ -75,13 +78,19 @@ class HttpRequestController {
 
     /**
      *
-     * @param error {string}
+     * @param error {string|Error}
      * @param payload {{}}
      * @param statusCode {number}
      * @return {*} The response body data
      * @protected
      */
     _writeErrorResponse ({error, payload = {}, statusCode = 500}) {
+
+        if (error instanceof Error) {
+            console.error('Internal Error: ', error);
+            error = 'InternalError';
+        }
+
         TypeUtils.assert(error, "string");
         TypeUtils.assert(payload, "object");
         TypeUtils.assert(statusCode, "number");
