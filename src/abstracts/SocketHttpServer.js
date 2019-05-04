@@ -26,12 +26,12 @@ class SocketHttpServer {
 	/**
 	 *
 	 * @param listen {string} The UNIX socket file to listen for requests.
-	 * @param http {module:http} The Node.js HTTP module
+	 * @param http {HttpServerModule} The Node.js HTTP module
 	 */
 	constructor ({listen, http} = {}) {
 
 		TypeUtils.assert(listen, "string");
-		//TypeUtils.assert(http, "module:http");
+		TypeUtils.assert(http, "HttpServerModule");
 
 		/**
 		 *
@@ -49,14 +49,14 @@ class SocketHttpServer {
 
 		/**
 		 *
-		 * @member {*}
+		 * @member {HttpServerModule}
 		 * @protected
 		 */
 		this._http = http;
 
 		/**
 		 *
-		 * @member {undefined}
+		 * @member {HttpServerObject}
 		 * @protected
 		 */
 		this._server = undefined;
@@ -152,12 +152,18 @@ class SocketHttpServer {
 	 */
 	start () {
 
-		const server = this._server = this._http.createServer(
+		TypeUtils.assert(this._server, "undefined");
+
+		const server = this._http.createServer(
 			(req, res) => LogicUtils.tryCatch(
 				() => this._handleRequest(req, res),
 				err => this._handleErrors(err)
 			)
 		);
+
+		TypeUtils.assert(server, "HttpServerObject");
+
+		this._server = server;
 
 		/**
 		 *
