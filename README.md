@@ -18,3 +18,15 @@ two-way HTTP(S)/UNIX-Socket connection (if connection is possible both ways).
 
 Communication between the service and observers is implemented over a UNIX socket file with 
 HTTP long polling.
+
+### Install
+
+`npm install -g @norjs/event-service`
+
+### Usage
+
+Start a service on `./socket.sock`:
+
+```
+NODE_LISTEN=socket.sock nor-event-service
+```
