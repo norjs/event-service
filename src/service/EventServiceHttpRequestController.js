@@ -25,13 +25,13 @@ const Event = require("@norjs/event/Event");
  *
  * @type {typeof AbstractSocketHttpServer}
  */
-const AbstractSocketHttpServer = require('../abstracts/AbstractSocketHttpServer.js');
+const AbstractSocketHttpServer = require('@norjs/socket-service/src/abstracts/AbstractSocketHttpServer.js');
 
 /**
  *
  * @type {typeof AbstractHttpRequestController}
  */
-const AbstractHttpRequestController = require('../abstracts/AbstractHttpRequestController.js');
+const AbstractHttpRequestController = require('@norjs/socket-service/src/abstracts/AbstractHttpRequestController.js');
 
 /**
  *

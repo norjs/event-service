@@ -1,5 +1,5 @@
-require('../interfaces/HttpRequestObject.js');
-require('../interfaces/HttpResponseObject.js');
+require('@norjs/socket-service/src/interfaces/HttpRequestObject.js');
+require('@norjs/socket-service/src/interfaces/HttpResponseObject.js');
 
 /**
  *
@@ -17,7 +17,7 @@ const LogicUtils = require('@norjs/utils/Logic');
  *
  * @type {typeof AbstractSocketHttpServer}
  */
-const AbstractSocketHttpServer = require('../abstracts/AbstractSocketHttpServer.js');
+const AbstractSocketHttpServer = require('@norjs/socket-service/src/abstracts/AbstractSocketHttpServer.js');
 
 /**
  * This class implements a HTTP server over UNIX socket file for NorJS EventService.
