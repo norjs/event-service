@@ -30,6 +30,7 @@
   "homepage": "https://github.com/norjs/event-service#readme",
   "dependencies": {
     "@norjs/socket-service": "^1.0.8",
+    "@norjs/socket": "^1.0.8",
     "@norjs/event": "^1.0.8",
     "@norjs/utils": "^1.0.8",
     "lodash": "^4.17.11",
