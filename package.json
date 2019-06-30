@@ -1,6 +1,6 @@
 {
   "name": "@norjs/event-service",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "NorJS Event Service",
   "main": "index.js",
   "directories": {
@@ -29,15 +29,15 @@
   ],
   "homepage": "https://github.com/norjs/event-service#readme",
   "dependencies": {
-    "@norjs/socket-service": "^1.0.8",
-    "@norjs/socket": "^1.0.8",
-    "@norjs/event": "^1.0.8",
-    "@norjs/utils": "^1.0.8",
+    "@norjs/event": "^1.0.9",
+    "@norjs/socket": "^1.0.9",
+    "@norjs/socket-service": "^1.0.9",
+    "@norjs/utils": "^1.0.9",
     "lodash": "^4.17.11",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.4",
     "sinon": "^7.3.1"
   }
 }
