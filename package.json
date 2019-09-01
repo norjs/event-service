@@ -33,6 +33,7 @@
     "@norjs/socket": "^1.0.14",
     "@norjs/socket-service": "^1.0.14",
     "@norjs/utils": "^1.0.14",
+    "@norjs/types": "^1.0.14",
     "lodash": "^4.17.15",
     "uuid": "^3.3.2"
   },

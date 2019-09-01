@@ -1,5 +1,5 @@
-require('@norjs/socket-service/src/interfaces/HttpRequestObject.js');
-require('@norjs/socket-service/src/interfaces/HttpResponseObject.js');
+require('@norjs/types/interfaces/HttpRequestObject.js');
+require('@norjs/types/interfaces/HttpResponseObject.js');
 
 /**
  *
